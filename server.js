@@ -30,51 +30,51 @@ mongoose.connect(MONGODB_URI,{
 // app.get ("/", function (req, res){
 //
 // });
-app.get("/scrape", function(req, res) {
-
-  axios.get("https://smallbiztrends.com/").then(function(response) {
-
-    var $ = cheerio.load(response.data);
-
-
-    $("h2").each(function(i, element) {
-
-      var result = {};
-
-
-      result.title = $(this)
-        .children("a")
-        .text();
-      result.link = $(this)
-        .children("a")
-        .attr("href");
-
-
-      db.Article
-        .create(result)
-        .then(function(dbArticle) {
-
-          res.send("Scrape Complete");
-        })
-        .catch(err => console.log(err));
-    });
-  });
-});
-
+// app.get("/scrape", function(req, res) {
 //
-app.get("/api/articles", function(req, res) {
-
-  db.Article
-    .find({})
-    .then(function(dbArticle) {
-
-      res.json(dbArticle);
-    })
-    .catch(function(err) {
-
-      res.json(err);
-    });
-});
+//   axios.get("https://smallbiztrends.com/").then(function(response) {
+//
+//     var $ = cheerio.load(response.data);
+//
+//
+//     $("h2").each(function(i, element) {
+//
+//       var result = {};
+//
+//
+//       result.title = $(this)
+//         .children("a")
+//         .text();
+//       result.link = $(this)
+//         .children("a")
+//         .attr("href");
+//
+//
+//       db.Article
+//         .create(result)
+//         .then(function(dbArticle) {
+//
+//           res.send("Scrape Complete");
+//         })
+//         .catch(err => console.log(err));
+//     });
+//   });
+// });
+//
+// //
+// app.get("/api/articles", function(req, res) {
+//
+//   db.Article
+//     .find({})
+//     .then(function(dbArticle) {
+//
+//       res.json(dbArticle);
+//     })
+//     .catch(function(err) {
+//
+//       res.json(err);
+//     });
+// });
 //
 //
 // app.get("/articles/:id", function(req, res) {
