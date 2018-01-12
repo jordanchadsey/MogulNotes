@@ -20,7 +20,7 @@ app.use(logger("dev"));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// app.use(express.static("public"));
+app.use(express.static("public"));
 
 app.use(express.static("client/build"));
 
@@ -50,15 +50,15 @@ app.get("/scrape", function(req, res) {
         .attr("href");
 
 
-      //   db.Article
-      //     .create(req.body)
-      //     .then(dbModel => res.json(dbModel))
-      //     .catch(err => res.status(422).json(err));
-      // });
+        db.Article
+          .create(req.body)
+          .then(dbModel => res.json(dbModel))
+          .catch(err => res.status(422).json(err));
+      });
   });
 });
 
-});
+
 //
 app.get("/articles", function(req, res) {
 
@@ -79,7 +79,7 @@ app.post("/articles", function (req,res){
     .create(req.body)
     .then(dbModel => res.json(dbModel))
     .catch(err => res.status(422).json(err));
-});
+})
 
 // app.get("/articles/:id", function(req, res) {
 //
