@@ -10,7 +10,7 @@ var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/MogulNotes";
 
 var db = require("./models");
 
-var PORT = process.env.PORT || 3001;
+var PORT = process.env.PORT || 3002;
 
 
 var app = express();
@@ -20,8 +20,9 @@ app.use(logger("dev"));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(express.static("public"));
+// app.use(express.static("public"));
 
+app.use(express.static("client/build"));
 
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI,{
@@ -49,17 +50,15 @@ app.get("/scrape", function(req, res) {
         .attr("href");
 
 
-      db.Article
-        .create(result)
-        .then(function(dbArticle) {
-          res.json("Scrape Complete");
-        })
-        .catch(err => console.log(err));
-    });
+      //   db.Article
+      //     .create(req.body)
+      //     .then(dbModel => res.json(dbModel))
+      //     .catch(err => res.status(422).json(err));
+      // });
   });
 });
 
-
+});
 //
 app.get("/articles", function(req, res) {
 
@@ -75,6 +74,12 @@ app.get("/articles", function(req, res) {
     });
 });
 
+app.post("/articles", function (req,res){
+  db.Article
+    .create(req.body)
+    .then(dbModel => res.json(dbModel))
+    .catch(err => res.status(422).json(err));
+});
 
 // app.get("/articles/:id", function(req, res) {
 //

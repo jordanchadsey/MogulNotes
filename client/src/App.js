@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import Content from "./components/Content";
 import API from "./utils/API";
 
+
 class App extends Component {
 state={
   articles: []
@@ -20,7 +21,7 @@ state={
 
     this.renderArticles();
   }
-  
+
   save = () =>
   {
     API.save().then(res =>{
@@ -36,7 +37,7 @@ state={
     <div className = "col s4"><div className = "card">
       <h3>{element.title}</h3>
       <a href = {element.link} target="_blank">{element.link}</a>
-      <button onClick = {this.save}>Save</button>
+      <button onClick = {() =>this.save()}>Save</button>
       </div>
     </div>
       <div className = "col s4"></div>
